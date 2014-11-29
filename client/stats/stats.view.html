@@ -1,8 +1,9 @@
-<div ng-controller="tmmStatsController">
+<div ng-controller="tmmStatsController" ng-click="updateAverageRating()">
   Stats
   <ul>
     <li ng-repeat="rating in ratings">
       {{rating}}
     </li>
+    Average rating: {{average}}
   </ul>
 </div>

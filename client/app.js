@@ -26,24 +26,14 @@ angular.module('tmmApp')
 angular.module('tmmApp')
 .directive('tmmTimeline', function() {
   return {
-    template: '<div ng-controller="tmmTimelineController">Timeline     \
-                <ul> \
-                <li ng-repeat="(movie, data) in movies">     \
-                    {{movie}}: {{data.rating}}\
-                </li> \
-                </div>'
+    templateUrl: 'timeline/timeline.view.html'
   };
 });
 
 angular.module('tmmApp')
 .directive('tmmStats', function() {
   return {
-    template: '<div ng-controller="tmmStatsController">Stats    \
-                <ul> \
-                <li ng-repeat="rating in ratings">     \
-                  {{rating}} \
-                </li> \
-                </div>'
+    templateUrl: 'stats/stats.view.html'
   };
 });
 

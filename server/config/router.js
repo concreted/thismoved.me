@@ -12,7 +12,7 @@ router.use(bodyParser.urlencoded({
 
 var session = require('express-session');
 
-router.use(session({secret: 'keyboard cat'}));
+router.use(session({secret: process.env.TMM_SESSION_SECRET}));
 
 function restrict(req, res, next) {
   if (req.session.user) {
@@ -25,7 +25,7 @@ function restrict(req, res, next) {
 }
 
 router.get('/', restrict, function(req, res) {
-  res.sendFile('index.html', {root: path.join(__dirname, '../../client')});
+  res.sendFile('login.html', {root: path.join(__dirname, '../../client')});
 });
 
 router.get('/login', function(req, res) {

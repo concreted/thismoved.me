@@ -2,7 +2,7 @@ var path = require('path');
 var mdb = require('moviedb')(process.env.TMDB_API_KEY)
 
 var mongoose = require('mongoose')
-//mongoose.connect('mongodb://localhost/thismovedme')
+mongoose.connect('mongodb://localhost/thismovedme')
 
 var express = require('express')
 var router = require('./config/router.js')

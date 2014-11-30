@@ -1,6 +1,6 @@
 angular.module('tmmApp')
 
-.controller('authController', function($scope, $http, $window, authFactory) {
+.controller('authController', function($scope, $http, $window, $state, authFactory) {
   $scope.user = authFactory.user;
   $scope.login = function() {
     return $http({
@@ -14,6 +14,7 @@ angular.module('tmmApp')
     })
     .then(function(token) {
       $window.localStorage.setItem('com.tmm', token);
+      $state.go('main');
     });
   };
 
@@ -23,6 +24,8 @@ angular.module('tmmApp')
   var isAuthenticated = function() {
     return !!$window.localStorage.getItem('com.tmm');
   };
+
+
 
   return {
     user: {},

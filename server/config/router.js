@@ -3,6 +3,8 @@ var router = express.Router();
 var path = require('path');
 var tmdb = require('../helpers/tmdb');
 
+var jwt = require('jwt-simple');
+
 // required to handle post data
 var bodyParser = require('body-parser');
 router.use( bodyParser.json() );
@@ -33,22 +35,31 @@ router.get('/login', function(req, res) {
 });
 
 router.post('/login', function(req, res) {
-  console.log(req.body);
-  tmdb.getNewAuthRequestToken()
-  .then(function(data) {
-    data = JSON.parse(data);
-    var token = data.request_token;
-    //req.session.user = 'yay';
-    return tmdb.authenticateRequestToken(token, req.body.username, req.body.password);
-  })
-  .then(function(data) {
-    req.session.user = 'yay';
-    res.redirect('/');
-  }, function(err) {
-    console.log('error!!!!');
-    console.log(err.error);
-    res.redirect('/login');
-  });
+  // Should validate login and send token if authenticated.
+  // Currently sends a token on any username.
+  var username = req.body.username;
+  var password = req.body.password;
+
+  var token = jwt.encode(username, 'secret');
+  console.log('===================token==================');
+  console.log(token);
+  res.json({token: token});
+  // console.log(req.body);
+  // tmdb.getNewAuthRequestToken()
+  // .then(function(data) {
+  //   data = JSON.parse(data);
+  //   var token = data.request_token;
+  //   //req.session.user = 'yay';
+  //   return tmdb.authenticateRequestToken(token, req.body.username, req.body.password);
+  // })
+  // .then(function(data) {
+  //   req.session.user = 'yay';
+  //   res.redirect('/');
+  // }, function(err) {
+  //   console.log('error!!!!');
+  //   console.log(err.error);
+  //   res.redirect('/login');
+  // });
 });
 
 module.exports = router;

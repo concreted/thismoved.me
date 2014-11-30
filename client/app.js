@@ -14,6 +14,11 @@ var app = angular.module('tmmApp', [
       templateUrl: 'main/main.html',
       controller: 'tmmController'
     });
+
+    $urlRouterProvider
+      .otherwise('/login');
+
+    // Need an intercepter here to add token to all outgoing requests
 });
 
 app.factory('tmmFactory', function(){

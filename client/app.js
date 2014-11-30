@@ -7,12 +7,14 @@ var app = angular.module('tmmApp', [
     .state('login', {
       url: '/login',
       templateUrl: 'auth/login.html',
-      controller: 'authController'
+      controller: 'authController',
+      authenticate: false
     })
     .state('main', {
       url: '/',
       templateUrl: 'main/main.html',
-      controller: 'tmmController'
+      controller: 'tmmController',
+      authenticate: true
     });
 
     $urlRouterProvider
@@ -55,3 +57,15 @@ app.factory('tmmFactory', function(){
 app.controller('tmmController', ['tmmFactory', function($scope, tmmFactory) {
 
 }]);
+
+// Check for state change. If state needs authentication and currently not authenticated,
+// redirect to login screen.
+app.run(function($rootScope, $state, authFactory) {
+  $rootScope.$on('$stateChangeStart', function(event, toState) {
+    if (toState.authenticate && !authFactory.isAuthenticated()) {
+      console.log('not authenticated');
+      $state.transitionTo('login');
+      event.preventDefault();
+    }
+  });
+});

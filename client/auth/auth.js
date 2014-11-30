@@ -16,12 +16,16 @@ angular.module('tmmApp')
       $window.localStorage.setItem('com.tmm', token);
     });
   };
+
 })
 
-.factory('authFactory', function() {
-  var af = {
-    user: {}
+.factory('authFactory', function($window) {
+  var isAuthenticated = function() {
+    return !!$window.localStorage.getItem('com.tmm');
   };
 
-  return af;
+  return {
+    user: {},
+    isAuthenticated: isAuthenticated
+  };
 });

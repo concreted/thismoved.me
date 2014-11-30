@@ -1,4 +1,20 @@
-var app = angular.module('tmmApp', []);
+var app = angular.module('tmmApp', [
+  'ui.router'
+])
+
+.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+  $stateProvider
+    .state('login', {
+      url: '/login',
+      templateUrl: 'auth/login.html',
+      controller: 'authController'
+    })
+    .state('main', {
+      url: '/',
+      templateUrl: 'main/main.html',
+      controller: 'tmmController'
+    });
+});
 
 app.factory('tmmFactory', function(){
   // dummy data

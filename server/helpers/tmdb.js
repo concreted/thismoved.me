@@ -5,11 +5,11 @@ var _ = require('lodash');
 var tmdb = module.exports = function(path) {
   var url = 'http://api.themoviedb.org/3/' + path + '?api_key=' + process.env.TMDB_API_KEY;
   var args = arguments[1];
-  console.log(args);
+  //console.log(args);
   _.forEach(args, function(value, key) {
     url += '&' + key + '=' + value;
   });
-  console.log(url);
+  //console.log(url);
   return rp(url);
 };
 
@@ -20,3 +20,7 @@ var getNewAuthRequestToken = module.exports.getNewAuthRequestToken = function() 
 var authenticateRequestToken = module.exports.authenticateRequestToken = function(token, username, password) {
   return tmdb('authentication/token/validate_with_login', {request_token: token, username: username, password: password});
 };
+
+var getNewSessionID = module.exports.getNewSessionID = function(request_token) {
+  return tmdb('authentication/session/new', {request_token: request_token});
+}

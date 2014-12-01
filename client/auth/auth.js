@@ -9,24 +9,26 @@ angular.module('tmmApp')
       data: $scope.user
     })
     .then(function (res) {
-      console.log('received token');
       return res.data.token;
     })
     .then(function(token) {
-      $window.localStorage.setItem('com.tmm', token);
-      $state.go('main');
+      if (token) {
+        console.log('received token');
+        $window.localStorage.setItem('com.tmm', token);
+        $state.go('main');
+      }
+      else {
+        console.log('authentication failed');
+        //$state.go('login');
+      }
     });
   };
-
 })
 
 .factory('authFactory', function($window) {
   var isAuthenticated = function() {
     return !!$window.localStorage.getItem('com.tmm');
   };
-
-
-
   return {
     user: {},
     isAuthenticated: isAuthenticated

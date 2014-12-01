@@ -19,7 +19,6 @@ var login = function(req, res, next) {
       .then(function(data) {
         data = JSON.parse(data);
         var token = data.request_token;
-        //req.session.user = 'yay';
         return tmdb.authenticateRequestToken(token, username, password);
       })
       // then authenticate the request token with username/password
@@ -44,7 +43,7 @@ var login = function(req, res, next) {
           session_id: session_id
         };
 
-        console.log('=========== user created ===========')
+        console.log('=========== user created ===========');
         console.log(session_id);
 
         var token = jwt.encode(username, 'secret');
